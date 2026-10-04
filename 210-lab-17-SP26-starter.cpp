@@ -23,8 +23,9 @@ int main() {
     Node *head = nullptr;
     int count = 0;
 
+    addNodeFront(head);
     addNodeTail(head);
-    addNodeTail(head);
+    deleteNode(head);
     output(head);
 
     // create a linked list of size SIZE with random numbers 0-99
@@ -172,4 +173,39 @@ void addNodeTail(Node *&head) {
     }
 
     current->next = newNode;
+}
+
+// deleteNode() deletes a selected node from the linked list
+// arguments: head pointer passed by reference
+// returns: none
+void deleteNode(Node *&head) {
+    cout << "Which node to delete? " << endl;
+    output(head);
+
+    int entry;
+    cout << "Choice --> ";
+    cin >> entry;
+
+    // Traverse to the selected node
+    Node *current = head;
+    Node *prev = nullptr;
+
+    for (int i = 0; i < (entry - 1); i++) {
+        prev = current;
+        current = current->next;
+    }
+
+    // Delete current and reroute pointers
+    if (current) {
+        if (prev == nullptr) {
+            // Deleting the head node
+            head = current->next;
+        }
+        else {
+            prev->next = current->next;
+        }
+
+        delete current;
+        current = nullptr;
+    }
 }
