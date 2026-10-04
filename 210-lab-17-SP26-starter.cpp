@@ -23,9 +23,14 @@ int main() {
     Node *head = nullptr;
     int count = 0;
 
-    addNodeFront(head);
     addNodeTail(head);
-    deleteNode(head);
+    addNodeTail(head);
+    addNodeTail(head);
+
+    output(head);
+
+    insertNode(head);
+
     output(head);
 
     // create a linked list of size SIZE with random numbers 0-99
@@ -207,5 +212,39 @@ void deleteNode(Node *&head) {
 
         delete current;
         current = nullptr;
+    }
+}
+
+// insertNode() inserts a new node after a selected node
+// arguments: head pointer passed by reference
+// returns: none
+void insertNode(Node *&head) {
+    cout << "After which node to insert 10000? " << endl;
+    output(head);
+
+    int entry;
+    cout << "Choice --> ";
+    cin >> entry;
+
+    Node *current = head;
+    Node *prev = nullptr;
+
+    // Traverse to the selected position
+    for (int i = 0; i < entry; i++) {
+        prev = current;
+        current = current->next;
+    }
+
+    // Insert a new node between prev and current
+    Node *newNode = new Node;
+    newNode->value = 10000;
+    newNode->next = current;
+
+    if (prev == nullptr) {
+        // Inserting before the head
+        head = newNode;
+    }
+    else {
+        prev->next = newNode;
     }
 }
