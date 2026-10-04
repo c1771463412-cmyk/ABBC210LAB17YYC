@@ -1,9 +1,7 @@
 // COMSC-210-5293 | Lab 17 | Yuyi Chen
 
 #include <iostream>
-using namespace std;
-
-const int SIZE = 7;  
+using namespace std;  
 
 struct Node {
     float value;
@@ -35,6 +33,14 @@ int main() {
         cout << "Choice --> ";
         cin >> choice;
 
+        while (cin.fail() || choice < 1 || choice > 7) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid choice. Please enter 1-7: ";
+            cin >> choice;
+        }
+
         switch (choice) {
             case 1:
                 addNodeFront(head);
@@ -65,6 +71,9 @@ int main() {
     return 0;
 }
 
+// output() displays all nodes in the linked list
+// arguments: pointer to the head of the linked list
+// returns: none
 void output(Node *hd) {
     if (!hd) {
         cout << "Empty list.\n";
@@ -81,11 +90,20 @@ void output(Node *hd) {
 
 // addNodeFront() adds a new node to the front of the linked list
 // arguments: head pointer passed by reference
+// head is passed by reference so the function can modify the original head pointer
 // returns: none
 void addNodeFront(Node *&head) {
     int value;
     cout << "Enter a value: ";
     cin >> value;
+
+    while (cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid input. Enter a number: ";
+        cin >> value;
+    }
 
     Node *newNode = new Node;
     newNode->value = value;
@@ -95,11 +113,20 @@ void addNodeFront(Node *&head) {
 
 // addNodeTail() adds a new node to the end of the linked list
 // arguments: head pointer passed by reference
+// head is passed by reference so the function can modify the original head pointer
 // returns: none
 void addNodeTail(Node *&head) {
     int value;
     cout << "Enter a value: ";
     cin >> value;
+
+    while (cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid input. Enter a number: ";
+        cin >> value;
+    }
 
     Node *newNode = new Node;
     newNode->value = value;
@@ -121,17 +148,40 @@ void addNodeTail(Node *&head) {
 
 // deleteNode() deletes a selected node from the linked list
 // arguments: head pointer passed by reference
+// head is passed by reference so the function can modify the original head pointer
 // returns: none
 void deleteNode(Node *&head) {
+    if (!head) {
+        cout << "The list is empty.\n";
+        return;
+    }
+
     cout << "Which node to delete? " << endl;
     output(head);
+
+    int count = 0;
+    Node *current = head;
+
+    // Count the number of nodes
+    while (current) {
+        count++;
+        current = current->next;
+    }
 
     int entry;
     cout << "Choice --> ";
     cin >> entry;
 
+    while (cin.fail() || entry < 1 || entry > count) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid choice. Please enter 1-" << count << ": ";
+        cin >> entry;
+    }
+
     // Traverse to the selected node
-    Node *current = head;
+    current = head;
     Node *prev = nullptr;
 
     for (int i = 0; i < (entry - 1); i++) {
@@ -140,32 +190,53 @@ void deleteNode(Node *&head) {
     }
 
     // Delete current and reroute pointers
-    if (current) {
-        if (prev == nullptr) {
-            // Deleting the head node
-            head = current->next;
-        }
-        else {
-            prev->next = current->next;
-        }
-
-        delete current;
-        current = nullptr;
+    if (prev == nullptr) {
+        // Deleting the head node
+        head = current->next;
     }
+    else {
+        prev->next = current->next;
+    }
+
+    delete current;
+    current = nullptr;
 }
 
 // insertNode() inserts a new node after a selected node
 // arguments: head pointer passed by reference
+// head is passed by reference so the function can modify the original head pointer
 // returns: none
 void insertNode(Node *&head) {
+    if (!head) {
+        cout << "The list is empty.\n";
+        return;
+    }
+
     cout << "After which node to insert 10000? " << endl;
     output(head);
+
+    int count = 0;
+    Node *current = head;
+
+    // Count the number of nodes
+    while (current) {
+        count++;
+        current = current->next;
+    }
 
     int entry;
     cout << "Choice --> ";
     cin >> entry;
 
-    Node *current = head;
+    while (cin.fail() || entry < 1 || entry > count) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid choice. Please enter 1-" << count << ": ";
+        cin >> entry;
+    }
+
+    current = head;
     Node *prev = nullptr;
 
     // Traverse to the selected position
@@ -178,18 +249,12 @@ void insertNode(Node *&head) {
     Node *newNode = new Node;
     newNode->value = 10000;
     newNode->next = current;
-
-    if (prev == nullptr) {
-        // Inserting before the head
-        head = newNode;
-    }
-    else {
-        prev->next = newNode;
-    }
+    prev->next = newNode;
 }
 
 // deleteList() deletes all nodes from the linked list
 // arguments: head pointer passed by reference
+// head is passed by reference so the function can modify the original head pointer
 // returns: none
 void deleteList(Node *&head) {
     Node *current = head;
