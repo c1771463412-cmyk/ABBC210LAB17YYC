@@ -23,7 +23,8 @@ int main() {
     Node *head = nullptr;
     int count = 0;
 
-    addNodeFront(head);
+    addNodeTail(head);
+    addNodeTail(head);
     output(head);
 
     // create a linked list of size SIZE with random numbers 0-99
@@ -138,11 +139,37 @@ void output(Node *hd) {
 // returns: none
 void addNodeFront(Node *&head) {
     int value;
-    cout << "Enter a calue: ";
+    cout << "Enter a value: ";
     cin >> value;
 
     Node *newNode = new Node;
     newNode->value = value;
     newNode->next = head;
     head = newNode;
+}
+
+// addNodeTail() adds a new node to the end of the linked list
+// arguments: head pointer passed by reference
+// returns: none
+void addNodeTail(Node *&head) {
+    int value;
+    cout << "Enter a value: ";
+    cin >> value;
+
+    Node *newNode = new Node;
+    newNode->value = value;
+    newNode->next = nullptr;
+
+    if (!head) {
+        head = newNode;
+        return;
+    }
+
+    Node *current = head;
+
+    while (current->next) {
+        current = current->next;
+    }
+
+    current->next = newNode;
 }
