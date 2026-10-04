@@ -23,6 +23,9 @@ int main() {
     Node *head = nullptr;
     int count = 0;
 
+    addNodeFront(head);
+    output(head);
+
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
         int tmp_val = rand() % 100;
@@ -128,4 +131,18 @@ void output(Node *hd) {
         current = current->next;
     }
     cout << endl;
+}
+
+// addNodeFront() adds a new node to the front of the linked list
+// arguments: head pointer passed by reference
+// returns: none
+void addNodeFront(Node *&head) {
+    int value;
+    cout << "Enter a calue: ";
+    cin >> value;
+
+    Node *newNode = new Node;
+    newNode->value = value;
+    newNode->next = head;
+    head = newNode;
 }
