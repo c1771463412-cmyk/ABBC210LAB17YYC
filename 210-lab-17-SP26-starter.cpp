@@ -29,7 +29,7 @@ int main() {
 
     output(head);
 
-    insertNode(head);
+    deleteList(head);
 
     output(head);
 
@@ -247,4 +247,19 @@ void insertNode(Node *&head) {
     else {
         prev->next = newNode;
     }
+}
+
+// deleteList() deletes all nodes from the linked list
+// arguments: head pointer passed by reference
+// returns: none
+void deleteList(Node *&head) {
+    Node *current = head;
+
+    while (current) {
+        head = current->next;
+        delete current;
+        current = head;
+    }
+
+    head = nullptr;
 }
