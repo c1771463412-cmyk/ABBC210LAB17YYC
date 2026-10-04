@@ -10,7 +10,14 @@ struct Node {
     Node *next;
 };
 
+// Function prototype
 void output(Node *);
+// Additional function prototypes
+void addNodeFront(Node *&);
+void addNodeTail(Node *&);
+void deleteNode(Node *&);
+void insertNode(Node *&);
+void deleteList(Node *&);
 
 int main() {
     Node *head = nullptr;
